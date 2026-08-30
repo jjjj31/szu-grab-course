@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "深圳大学选课助手",
+  "version": "1.0.0",
+  "description": "深圳大学选课抢课浏览器插件：登录选课网站后自动捕获配置，面板选课一键开抢。",
+  "permissions": ["storage", "webRequest", "tabs", "cookies"],
+  "host_permissions": [
+    "http://bkxk.szu.edu.cn/*",
+    "https://bkxk.szu.edu.cn/*",
+    "https://bkxk.webvpn.szu.edu.cn/*",
+    "https://webvpn.szu.edu.cn/*",
+    "https://authserver-443.webvpn.szu.edu.cn/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://bkxk.szu.edu.cn/*",
+        "https://bkxk.szu.edu.cn/*",
+        "https://bkxk.webvpn.szu.edu.cn/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "深圳大学选课助手",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

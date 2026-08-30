@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>深圳大学选课助手 · 全页选课</title>
+  <link rel="stylesheet" href="select.css">
+</head>
+<body>
+  <header>
+    <div class="head-left">
+      <h1>深圳大学选课助手 · 全页选课</h1>
+      <div id="status" class="status"></div>
+    </div>
+    <button id="openSite" class="ghost hidden">打开选课网站</button>
+  </header>
+
+  <main>
+    <!-- 左侧：课程浏览 -->
+    <section class="course-pane">
+      <div class="toolbar">
+        <div id="typeTabs" class="tabs"></div>
+        <input id="search" type="text" placeholder="搜索课程名 / 老师 / ID">
+        <label class="filt"><input type="checkbox" id="onlyFree" checked> 仅看有余量</label>
+        <label class="filt"><input type="checkbox" id="hideSelected" checked> 隐藏已选</label>
+        <label class="filt"><input type="checkbox" id="hideConflict"> 隐藏冲突</label>
+        <button id="refreshBtn" class="secondary">刷新课表</button>
+        <button id="fetchAllBtn" class="secondary">拉取全部</button>
+        <button id="importBtn" class="secondary">导入 CSV</button>
+        <button id="exportCsvBtn" class="secondary">导出 CSV</button>
+        <input id="fileInput" type="file" accept=".csv,text/csv" multiple hidden>
+      </div>
+      <div class="table-wrap">
+        <table class="course-table">
+          <thead>
+            <tr>
+              <th class="col-check"></th>
+              <th class="col-name">课程名</th>
+              <th class="col-teacher">教师</th>
+              <th class="col-place">地点</th>
+              <th class="col-cap">余量</th>
+              <th class="col-conflict">冲突</th>
+              <th class="col-id">课程 ID</th>
+              <th class="col-act">操作</th>
+            </tr>
+          </thead>
+          <tbody id="courseBody"></tbody>
+        </table>
+        <div id="courseEmpty" class="empty hidden">无数据</div>
+      </div>
+    </section>
+
+    <!-- 右侧：手动添加 + 抢课控制 -->
+    <aside class="side-pane">
+      <section class="card">
+        <div class="card-title">手动添加（兜底）</div>
+        <div class="row">
+          <input id="manualId" type="text" placeholder="课程 ID">
+          <select id="manualType">
+            <option value="FANKC">方案内</option>
+            <option value="FAWKC">方案外</option>
+            <option value="TJKC">本班</option>
+            <option value="XGXK">校公选</option>
+            <option value="TYKC">体育</option>
+            <option value="FXKC">辅修</option>
+            <option value="MOOC">慕课</option>
+          </select>
+        </div>
+        <div class="row">
+          <input id="manualName" type="text" placeholder="课程名(可选)">
+          <button id="manualAdd" class="secondary">添加</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">抢课设置</div>
+        <div class="row">
+          <label>间隔延迟 <input id="delay" type="number" value="400" min="0" step="50"> ms</label>
+          <span class="hint">建议不低于 400</span>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">开始抢课 <span id="grabStatus" class="grab-status">空闲</span></div>
+        <div class="row">
+          <button id="startGrab" class="primary">开始抢课</button>
+          <button id="stopGrab" class="danger" disabled>停止</button>
+          <button id="viewResult" class="secondary">查看已选</button>
+        </div>
+        <div id="tip" class="tip"></div>
+        <div id="log" class="log"></div>
+      </section>
+    </aside>
+  </main>
+
+  <!-- 底部：已选课程（优先级） -->
+  <section class="tray">
+    <div class="tray-head">
+      <span>已选课程（<b id="selectedCount">0</b>）</span>
+      <span class="hint">从上到下为优先级，整轮提交完所有志愿，没成功的自动下一个</span>
+      <button id="clearSelected" class="danger small">清空</button>
+    </div>
+    <div id="selectedList" class="tray-list"></div>
+  </section>
+
+  <script src="common.js"></script>
+  <script src="select.js"></script>
+</body>
+</html>

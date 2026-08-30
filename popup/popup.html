@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>深圳大学选课助手</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>深圳大学选课助手</h1>
+    <div id="status" class="status"></div>
+  </header>
+
+  <section class="panel">
+    <button id="openSelect" class="primary" style="width:100%">打开全页选课面板（课程多时更好选）</button>
+  </section>
+
+  <section class="panel" id="configPanel">
+    <div class="panel-title">手动配置<span class="hint">（自动捕获失败时使用，对应原 setting.py）</span></div>
+    <div class="row">
+      <label class="grow">学号 <input id="studentCode" type="text" placeholder="studentCode"></label>
+    </div>
+    <div class="row">
+      <label class="grow">批次码 <input id="electiveBatchCode" type="text" placeholder="electiveBatchCode"></label>
+    </div>
+    <div class="row">
+      <button id="saveConfig" class="secondary">保存配置</button>
+      <button id="exportConfig" class="secondary" title="导出 auto_config.json，供 download_data.py 自动读取">导出配置（给 download_data.py）</button>
+    </div>
+    <div class="hint">「导出配置」会下载一个 auto_config.json，把它放到项目根目录，再运行 download_data.py 即可，无需手动填 setting.py</div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-title">1 · 选择要抢的课程</div>
+    <div class="row">
+      <select id="courseType">
+        <option value="TJKC">本班课程</option>
+        <option value="FANKC">方案内课程</option>
+        <option value="FAWKC">方案外课程</option>
+        <option value="XGXK">校公选课</option>
+        <option value="TYKC">体育课程</option>
+        <option value="FXKC">辅修课程</option>
+        <option value="MOOC">慕课</option>
+      </select>
+      <button id="importBtn" class="secondary">导入 CSV</button>
+      <button id="fetchBtn" class="secondary">拉取课程</button>
+      <input id="fileInput" type="file" accept=".csv,text/csv" multiple hidden>
+    </div>
+    <div class="hint">「拉取课程」实时从选课网站获取（需已登录，校园网/webvpn 均可）；「导入 CSV」读 download_data.py 生成的 data/*.csv（可多选）</div>
+    <div class="row">
+      <input id="search" type="text" placeholder="搜索课程名 / 老师 / ID">
+    </div>
+    <div id="courseList" class="course-list"></div>
+
+    <div class="panel-title small">手动添加课程（兜底）</div>
+    <div class="row">
+      <input id="manualId" type="text" placeholder="课程 ID">
+      <select id="manualType">
+        <option value="FANKC">方案内</option>
+        <option value="FAWKC">方案外</option>
+        <option value="TJKC">本班</option>
+        <option value="XGXK">校公选</option>
+        <option value="TYKC">体育</option>
+        <option value="FXKC">辅修</option>
+        <option value="MOOC">慕课</option>
+      </select>
+      <input id="manualName" type="text" placeholder="名称(可选)">
+      <button id="manualAdd" class="secondary">添加</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-title">2 · 已选课程（按优先级顺序，抢到即停）</div>
+    <div id="selectedList" class="selected-list"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-title">3 · 抢课设置</div>
+    <div class="row">
+      <label>间隔延迟 <input id="delay" type="number" value="400" min="0" step="50"> ms</label>
+      <span class="hint">建议不低于 400</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-title">4 · 开始抢课 <span id="grabStatus" class="grab-status">空闲</span></div>
+    <div class="row">
+      <button id="startGrab" class="primary">开始抢课</button>
+      <button id="stopGrab" class="danger" disabled>停止</button>
+      <button id="viewResult" class="secondary">查看已选课程</button>
+    </div>
+    <div id="tip" class="tip"></div>
+    <div id="log" class="log"></div>
+  </section>
+
+  <script src="../common.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
