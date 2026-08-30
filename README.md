@@ -1,8 +1,12 @@
 # 深圳大学选课助手（浏览器插件版）
 
-> 本插件改造自 [Lewin671/YourLesson](https://github.com/Lewin671/YourLesson)：原项目是针对深大选课系统的 Python 命令行抢课脚本，本插件把它的手动配置（复制 Cookie/token/学号）和命令行抢课流程，改造成了登录后自动捕获配置、网页面板一键抢课的 Chrome / Edge 浏览器插件，感谢原作者。
+> 本插件改造自两个深大选课 Python 抢课脚本项目，感谢原作者：
+> - [guiyi886/szu_grab_course](https://github.com/guiyi886/szu_grab_course)（在 Lewin671/YourLesson 基础上复刻维护）
+> - [Lewin671/YourLesson](https://github.com/Lewin671/YourLesson)
+>
+> 原项目需要手动复制 Cookie/token/学号填写 `setting.py`、命令行运行抢课；本插件把这些流程改造成了登录后自动捕获配置、网页面板一键抢课的 Chrome / Edge 浏览器插件（Manifest V3）。
 
-把原 Python 抢课脚本改造成 **Chrome / Edge 浏览器插件（Manifest V3）**。安装后登录选课网站即可自动完成配置，把课程数据导入面板勾选要抢的课，点一下「开始抢课」即可。
+安装后登录选课网站即可自动完成配置，把课程数据导入面板勾选要抢的课，点一下「开始抢课」即可。
 
 ## 与原脚本的对应关系
 
